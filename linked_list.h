@@ -5,8 +5,9 @@
 #include <stdio.h>
 
 struct list_node {
+  //self referencial
   size_t value;
-  struct list_node *next;
+  struct list_node *next; //refers to the same attribute of type node
 };
 
 struct linked_list {

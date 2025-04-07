@@ -10,7 +10,6 @@ struct queue {
 
 void enqueue(struct queue *q, struct game_state state);
 struct game_state dequeue(struct queue *q);
-
 int number_of_moves(struct game_state start);
 
 #endif

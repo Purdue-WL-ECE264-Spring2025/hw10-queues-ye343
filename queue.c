@@ -1,14 +1,17 @@
 #include "queue.h"
 #include "tile_game.h"
-#include <assert.h>
-#include <stdlib.h>
 
 static struct list_node *new_node(struct game_state state) {
     struct list_node *node = (struct list_node *)malloc(sizeof(struct list_node));
     if (!node) {
         return NULL; // Return NULL if allocation fails
     }
-    node->value = (size_t)&state;  // Assuming you want to store the address of state
+    node->value = (size_t)malloc(sizeof(struct game_state));  // Assuming you want to store the address of state
+    if (!node-> value){
+        free(node);
+        return NULL;
+    }
+    *(struct game_state *)node->value = state;  // Copy state into the node
     node->next = NULL;
     return node;
 }
@@ -33,7 +36,7 @@ void enqueue(struct queue *q, struct game_state state) {
 
 
 struct game_state dequeue(struct queue *q) { 
-    if(q->data.head != NULL )
+    if(q->data.head == NULL )
     {
         exit(1);
     }

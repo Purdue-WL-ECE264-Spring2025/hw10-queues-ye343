@@ -1,23 +1,16 @@
 #include "queue.h"
 #include "tile_game.h"
 #include <assert.h>
+#include <stdlib.h>
 
 static struct list_node *new_node(struct game_state state) {
-    struct list_node *node = new_node(state);
+    struct list_node *node = (struct list_node *)malloc(sizeof(struct list_node));
     if (!node) {
-        return; // Allocation failed
+        return NULL; // Return NULL if allocation fails
     }
-
-    // Insert at the tail of the linked list
-    if (q->data.head == NULL) {
-        q->data.head = node;
-    } else {
-        struct list_node *current = q->data.head;
-        while (current->next != NULL) {
-            current = current->next;
-        }
-        current->next = node;
-    }
+    node->value = (size_t)&state;  // Assuming you want to store the address of state
+    node->next = NULL;
+    return node;
 }
 
 void enqueue(struct queue *q, struct game_state state) {

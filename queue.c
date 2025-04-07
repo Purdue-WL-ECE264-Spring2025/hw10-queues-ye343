@@ -33,7 +33,10 @@ void enqueue(struct queue *q, struct game_state state) {
 
 
 struct game_state dequeue(struct queue *q) { 
-    assert(q->data.head != NULL && "Queue is empty");
+    if(q->data.head != NULL )
+    {
+        exit(1);
+    }
 
     struct list_node *node = q->data.head;
     struct game_state *state = (struct game_state *)node->value;
@@ -44,10 +47,6 @@ struct game_state dequeue(struct queue *q) {
     return *state;
 }
 
-int number_of_moves(struct game_state start) { 
-    return start.num_steps;
-}
-
 void free_queue(struct queue *q) {
     struct list_node *current = q->data.head;
     while (current != NULL) {
@@ -55,5 +54,10 @@ void free_queue(struct queue *q) {
         free(current);
         current = next_node;
     }
-    q->data.head = NULL; // Set the head to NULL after freeing all nodes
+    q->data.head = NULL; 
+
+int number_of_moves(struct game_state start) { 
+    return start.num_steps;
+}
+
 }

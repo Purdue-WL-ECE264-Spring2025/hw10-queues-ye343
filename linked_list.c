@@ -34,33 +34,34 @@ void insert_at_tail(struct linked_list *list, size_t value) {
   {
     list -> head = node;
   }
-  return;
-
-  struct list_node *current = list -> head;
-  while (current -> next != NULL)
+  else
   {
-    current = current -> next;
+    struct list_node *current = list -> head;
+    while (current -> next != NULL)
+    {
+      current = current -> next;
+    }
+    current -> next = node;
   }
-  current -> next = node;
-  
 }
 
 size_t remove_from_head(struct linked_list *list) { 
   if (list -> head == NULL) //check if list is empty
   {
-    return 0;
+    exit(1);
   }
   struct list_node *yoink = list -> head;
   list-> head = list -> head -> next;
+  size_t value = yoink->value;
   free(yoink);
-  return list -> head -> value; 
+  return value; 
   }
   
 size_t remove_from_tail(struct linked_list *list) { 
   
   if (list -> head == NULL) 
   {
-    return 0;
+    exit(1);
   }
 
   if (list->head->next == NULL) //last node in list
@@ -72,7 +73,7 @@ size_t remove_from_tail(struct linked_list *list) {
 
   }
   struct list_node * current = list-> head; // Multiple nodes - find the second-to-last node
-  while (current->next->next != NULL) 
+  while (current->next && current -> next -> next != NULL) 
   {
       current = current->next;
   }
@@ -92,6 +93,7 @@ void free_list(struct linked_list list) {
     free(current);
     current = next;
   }
+  list.head = NULL;
 
 }
 

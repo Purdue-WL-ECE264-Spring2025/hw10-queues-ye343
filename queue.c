@@ -55,9 +55,8 @@ void free_queue(struct queue *q) {
         current = next_node;
     }
     q->data.head = NULL; 
+}
 
 int number_of_moves(struct game_state start) { 
     return start.num_steps;
-}
-
 }
